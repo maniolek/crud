@@ -14,6 +14,7 @@ namespace Vegas\Crud\Db;
 use Phalcon\DiInterface;
 use Phalcon\Mvc\Collection\Manager;
 use Vegas\Crud\Db\Exception\NoRequiredServiceException;
+use Vegas\Crud\Scaffolding;
 
 /**
  * Trait AdapterTrait
@@ -25,29 +26,26 @@ use Vegas\Crud\Db\Exception\NoRequiredServiceException;
 trait AdapterTrait
 {
     /**
-     * Verifies required services for Mongo adapter
+     * Determines if scaffolding has been set
      *
-     * @param DiInterface $di
-     * @throws NoRequiredServiceException
+     * @return bool
+     * @throws \Vegas\Crud\Scaffolding\Exception\MissingScaffoldingException
      */
-    public function verifyRequiredServices(DiInterface $di)
+    protected function ensureScaffolding()
     {
-        if (!$di->has('mongo')) {
-            throw new NoRequiredServiceException();
+        if (!$this->scaffolding instanceof Scaffolding) {
+            throw new Scaffolding\Exception\MissingScaffoldingException();
         }
+
+        return true;
     }
 
     /**
-     * Setups extra services (if not exist) required by mongo service
-     *
-     * @param DiInterface $di
+     * {@inheritdoc}
      */
-    public function setupExtraServices(DiInterface $di)
-    {
-        if (!$di->has('collectionManager')) {
-            $di->set('collectionManager', function() {
-                return new Manager();
-            });
-        }
+    public function setScaffolding(Scaffolding $scaffolding) {
+        $this->scaffolding = $scaffolding;
+
+        return $this;
     }
 }

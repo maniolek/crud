@@ -16,6 +16,7 @@ use Phalcon\DI;
 use Phalcon\DiInterface;
 use Phalcon\Paginator\Adapter\Model as PaginatorAdapterModel;
 use Vegas\Crud\Db\AdapterInterface;
+use Vegas\Crud\Db\AdapterTrait;
 use Vegas\Crud\Db\Exception\NoRequiredServiceException;
 use Vegas\Crud\Scaffolding\AdapterInterface as ScaffoldingAdapterInterface;
 use Vegas\Crud\Scaffolding\Exception\MissingScaffoldingException;
@@ -31,6 +32,7 @@ use Vegas\Crud\Scaffolding;
  */
 class Mysql implements AdapterInterface, ScaffoldingAdapterInterface
 {
+    use AdapterTrait;
     /**
      * Scaffolding instance
      *
@@ -80,34 +82,10 @@ class Mysql implements AdapterInterface, ScaffoldingAdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function setScaffolding(Scaffolding $scaffolding) {
-        $this->scaffolding = $scaffolding;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function verifyRequiredServices(DiInterface $di)
     {
         if (!$di->has('mysql')) {
             throw new NoRequiredServiceException();
         }
-    }
-
-    /**
-     * Determines if scaffolding has been set
-     *
-     * @return bool
-     * @throws \Vegas\Crud\Scaffolding\Exception\MissingScaffoldingException
-     */
-    protected function ensureScaffolding()
-    {
-        if (!$this->scaffolding instanceof Scaffolding) {
-            throw new MissingScaffoldingException();
-        }
-
-        return true;
     }
 }
