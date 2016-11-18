@@ -227,18 +227,6 @@ abstract class CrudAbstract extends ControllerAbstract
     }
 
     /**
-     * Checks if request was send using POST method
-     *
-     * @throws Exception\PostRequiredException
-     */
-    protected function checkRequest()
-    {
-        if (!$this->request->isPost()) {
-            throw new Exception\PostRequiredException();
-        }
-    }
-
-    /**
      * Deletes existing record by its ID
      *
      * @param $id
@@ -260,6 +248,18 @@ abstract class CrudAbstract extends ControllerAbstract
         } catch (Exception $e) {
             $this->flash->error($e->getMessage());
             return $this->afterDeleteException();
+        }
+    }
+
+    /**
+     * Checks if request was send using POST method
+     *
+     * @throws Exception\PostRequiredException
+     */
+    protected function checkRequest()
+    {
+        if (!$this->request->isPost()) {
+            throw new Exception\PostRequiredException();
         }
     }
 }

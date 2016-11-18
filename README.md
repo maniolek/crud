@@ -138,3 +138,33 @@ class ProfileController extends CrudAbstract
     protected $showFields = ['name' => 'Client name'];
 }
 ```
+
+### Example routing
+Note: Each route heading to crud page must have a name specified.
+
+ ```php
+ $router->add('/crud/:action/:params', [
+     'module' => 'Crud',
+     'controller' => 'Client\Profile',
+     'action' => 1,
+     'params' => 2
+ ])->setName('crud/index');
+ ```
+
+### Default actions and views
+We've prepared default views for actions of CrudAbstract class, they are located at vendor/vegas-cmf/crud/src/View/ directory.
+A CrudAbstract class is obligated to find this views when a custom view won't be found. For the custom view, you can
+easily grab them and copy to your module view directory. There is defined a pattern of the path to a controller view
+directory. For ProfileController described above, the view directory for this controller would be Crud/View/Client/Profile/
+So here we have 'Crud' as a module name, 'Client/Profile' as controller namespace with a name.
+
+Example View structure is listed here:
+```
+View/
+    Client/
+        Profile/
+            index.volt
+            new.volt
+            show.volt
+            edit.volt
+```
