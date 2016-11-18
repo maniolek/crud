@@ -39,7 +39,8 @@ abstract class CrudAbstract extends ControllerAbstract
      */
     public function initialize()
     {
-        $this->dispatcher->getEventsManager()->attach('view:notFoundView', function ($event, View $view, $filePath) {
+        $this->dispatcher->getEventsManager()->attach('view:notFoundView', function ($event, View $view, $filePath)
+        {
             if (!in_array($this->dispatcher->getActionName(), ['new', 'edit', 'show', 'index'])) {
                 return false;
             }
@@ -47,10 +48,11 @@ abstract class CrudAbstract extends ControllerAbstract
             if ($view->getCurrentRenderLevel() == View::LEVEL_ACTION_VIEW) {
                 $templatePath = implode(DIRECTORY_SEPARATOR, [dirname(__FILE__)]);
 
+                $view->lastViewsDir = $view->getViewsDir();
                 $view->setViewsDir($templatePath);
                 $view->setRenderLevel(View::LEVEL_ACTION_VIEW);
                 $view->render('View', $this->dispatcher->getActionName());
-
+                $view->setViewsDir($view->lastViewsDir);
             }
             return true;
         });

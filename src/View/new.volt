@@ -35,7 +35,7 @@
 
                                 <div class="clearfix form-group">
                                     <button type="submit" class="btn btn-flat success">Save</button>
-                                    <a href="{{ url.get(['for': router.getMatchedRoute().getName(), 'action':'index']) }}" class="btn pull-right">Cancel</a>
+                                    <a href="{{ url.get(['for': router.getMatchedRoute().getName(), 'action':'index']) }}" class="btn btn-default pull-right">Cancel</a>
                                 </div>
                             </form>
                         </div>

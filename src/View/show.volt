@@ -11,7 +11,7 @@
                 {% for key, field in fields %}
                     <tr>
                         <th>{{ field }}</th>
-                        <td>{{ record.readMapped(key) }}</td>
+                        <td>{{ record.readAttribute(key) }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
