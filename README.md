@@ -82,7 +82,7 @@ class Profile extends \Vegas\Forms\Form
 ### Example model class
 
 ```php
-namespace Person\Model;
+namespace Client\Model;
 
 use \Vegas\ODM\Collection;
 
